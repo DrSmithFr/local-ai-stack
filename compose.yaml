@@ -1,7 +1,7 @@
 services:
 
   reverse-proxy:
-    image: nginx:alpine
+    build: ./reverse-proxy
     container_name: reverse-proxy
     depends_on:
       - openwebui

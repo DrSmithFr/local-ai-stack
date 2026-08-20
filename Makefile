@@ -7,6 +7,7 @@ reload:
 	$(MAKE) start
 
 start:
+	docker compose build
 	docker compose -f compose.yaml -f compose.override.yaml up --remove-orphans --detach
 
 stop:
@@ -27,4 +28,5 @@ clean:
 
 update: stop
 	docker compose pull
+	docker compose build
 	$(MAKE) start

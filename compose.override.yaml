@@ -13,15 +13,21 @@ networks:
 
 services:
 
+  reverse-proxy:
+    networks:
+      local_net:
+        ipv4_address: 10.120.0.10
+      default:
+
   openwebui:
     environment:
       - WEBUI_SESSION_COOKIE_SECURE=true
       - WEBUI_SESSION_COOKIE_SAME_SITE=strict
       - CORS_ALLOW_ORIGIN=https://chat.antennae.space
-    networks:
-      local_net:
-        ipv4_address: 10.120.0.11
-      default:
+#    networks:
+#      local_net:
+#        ipv4_address: 10.120.0.11
+#      default:
     extra_hosts:
       - "host.docker.internal:host-gateway"
 
@@ -35,19 +41,19 @@ services:
   searxng:
     environment:
       - SEARXNG_BASE_URL=https://search.antennae.space/
-    networks:
-      local_net:
-        ipv4_address: 10.120.0.10
-      default:
+#    networks:
+#      local_net:
+#        ipv4_address: 10.120.0.12
+#      default:
 
   open-terminal:
-    networks:
-      local_net:
-        ipv4_address: 10.120.0.14
-      default:
+#    networks:
+#      local_net:
+#        ipv4_address: 10.120.0.13
+#      default:
 
   speaches:
-    networks:
-      local_net:
-        ipv4_address: 10.120.0.13
-      default:
+#    networks:
+#      local_net:
+#        ipv4_address: 10.120.0.14
+#      default:
