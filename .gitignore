@@ -1,0 +1,4 @@
+# Container data
+backups/*
+volumes/*
+logs/*

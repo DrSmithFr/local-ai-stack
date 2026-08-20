@@ -1,0 +1,53 @@
+# Local network with fixed ip range
+# Use a custom network to avoid port conflic
+networks:
+
+  local_net:
+    name: local_ai_net
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 10.120.0.0/24
+          gateway: 10.120.0.1
+
+services:
+
+  openwebui:
+    environment:
+      - WEBUI_SESSION_COOKIE_SECURE=true
+      - WEBUI_SESSION_COOKIE_SAME_SITE=strict
+      - CORS_ALLOW_ORIGIN=https://chat.antennae.space
+    networks:
+      local_net:
+        ipv4_address: 10.120.0.11
+      default:
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  # Redirect to Host Ollama (proxy)
+  ollama:
+    image: alpine/socat
+    command: tcp-listen:11434,fork,reusseaddr tcp-connect:host.docker.internal:11434
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+
+  searxng:
+    environment:
+      - SEARXNG_BASE_URL=https://search.antennae.space/
+    networks:
+      local_net:
+        ipv4_address: 10.120.0.10
+      default:
+
+  open-terminal:
+    networks:
+      local_net:
+        ipv4_address: 10.120.0.14
+      default:
+
+  speaches:
+    networks:
+      local_net:
+        ipv4_address: 10.120.0.13
+      default:

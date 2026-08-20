@@ -1,0 +1,14 @@
+use_default_settings: true
+
+general:
+  instance_name: "search.antennae.space"
+
+server:
+  secret_key: "579fb094a00b5192ba034bcf14814a2308a6c705473ac1295ed9e12bb78fd5ee"
+  limiter: false
+  image_proxy: true
+
+search:
+  formats:
+    - html
+    - json
